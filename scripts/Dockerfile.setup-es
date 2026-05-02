@@ -1,0 +1,5 @@
+FROM python:3.11-slim
+WORKDIR /app
+RUN pip install elasticsearch
+COPY scripts/setup_es.py .
+CMD ["python", "setup_es.py"]
