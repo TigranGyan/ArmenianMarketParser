@@ -1,10 +1,12 @@
 import os
-from celery_app import app
-from database import SessionLocal
-from models import Product, Price, Store, Category
-from elasticsearch import Elasticsearch
 from datetime import datetime
+
+from celery_app import app
+from elasticsearch import Elasticsearch
+from models import Price, Product, Store
 from sqlalchemy import and_
+
+from database import SessionLocal
 
 ES_URL = os.getenv("ELASTICSEARCH_URL", "http://elasticsearch:9200")
 es = Elasticsearch(ES_URL)

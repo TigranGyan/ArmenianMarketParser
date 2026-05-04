@@ -1,11 +1,15 @@
 import os
-from fastapi import FastAPI, Depends, HTTPException, Query, status
-from fastapi.security import OAuth2PasswordRequestForm
-from sqlalchemy.orm import Session
-from elasticsearch import Elasticsearch
-import models, database, auth
 from typing import List, Optional
+
+import auth
+import models
+from elasticsearch import Elasticsearch
+from fastapi import Depends, FastAPI, HTTPException, Query, status
+from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
+from sqlalchemy.orm import Session
+
+import database
 
 app = FastAPI(title="Price Aggregator API")
 

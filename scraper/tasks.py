@@ -1,7 +1,7 @@
 import asyncio
+
 from celery_app import app
 from scrapers.sas_scraper import SASScraper
-from celery import shared_task
 
 SCRAPER_REGISTRY = {
     "sas": SASScraper

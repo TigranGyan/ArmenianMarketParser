@@ -1,15 +1,29 @@
+import logging
 import os
+import secrets
 from datetime import datetime, timedelta
 from typing import Optional
-from jose import JWTError, jwt
-from passlib.context import CryptContext
+
+import models
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
+from jose import JWTError, jwt
+from passlib.context import CryptContext
 from sqlalchemy.orm import Session
-import database, models
+
+import database
+
+logger = logging.getLogger(__name__)
 
 # Secret key to sign JWT
-SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-that-should-be-long-and-random")
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    if os.getenv("ENV") == "production":
+        raise RuntimeError("SECRET_KEY must be set in production environment")
+    SECRET_KEY = secrets.token_hex(32)
+    logger.warning(f"Generated temporary SECRET_KEY for development: {SECRET_KEY}")
+    print(f"Generated temporary SECRET_KEY for development: {SECRET_KEY}")
+
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 1 week
 
