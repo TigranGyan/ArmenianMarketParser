@@ -4,8 +4,9 @@ def test_normalize_name():
     assert normalize_name("YOGURT ") == "yogurt"
 
 def test_raw_item_model():
-    from scraper.base import RawItem
     from datetime import datetime
+
+    from scraper.base import RawItem
     item = RawItem(
         name="Test",
         price=100.0,

@@ -1,0 +1,13 @@
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "B", "I"]
+ignore = []
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+
+[tool.mypy]
+python_version = "3.11"
+strict = false
+ignore_missing_imports = true

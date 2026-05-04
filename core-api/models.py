@@ -1,7 +1,19 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Numeric, DateTime, JSON, CHAR
+from sqlalchemy import (
+    CHAR,
+    JSON,
+    Boolean,
+    Column,
+    DateTime,
+    ForeignKey,
+    Integer,
+    Numeric,
+    String,
+)
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+
 from database import Base
+
 
 class Store(Base):
     __tablename__ = "stores"

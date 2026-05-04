@@ -1,92 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Price Aggregator MVP</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
-    <div id="app" class="container mx-auto px-4 py-8">
-        <h1 class="text-4xl font-bold mb-8 text-center">Price Aggregator</h1>
-
-        <div class="mb-8 flex justify-center">
-            <input
-                v-model="query"
-                @keyup.enter="search"
-                type="text"
-                placeholder="Search products (e.g., milk)..."
-                class="w-full max-w-lg px-4 py-2 rounded-l-lg border-2 border-blue-500 focus:outline-none"
-            >
-            <button
-                @click="search"
-                class="bg-blue-500 text-white px-6 py-2 rounded-r-lg hover:bg-blue-600 transition"
-            >
-                Search
-            </button>
-        </div>
-
-        <div v-if="loading" class="text-center">
-            <p>Loading...</p>
-        </div>
-
-        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div v-for="item in items" :key="item.product_id" class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-semibold mb-2 capitalize">{{ item.canonical_name }}</h2>
-                <p class="text-gray-600 mb-4">{{ item.brand }}</p>
-
-                <div class="border-t pt-4">
-                    <p class="font-bold text-lg text-blue-600">From {{ item.min_price }} AMD</p>
-                    <p class="text-sm text-gray-500 mb-2">Available in {{ item.stores_count }} stores</p>
-
-                    <ul class="space-y-2 mt-4">
-                        <li v-for="price in item.prices" class="flex justify-between items-center text-sm">
-                            <span>{{ price.store_name }}</span>
-                            <div class="text-right">
-                                <span class="font-bold">{{ price.price }} AMD</span>
-                                <a :href="price.url" target="_blank" class="block text-blue-500 hover:underline text-xs">View Deal</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div v-if="items.length === 0 && !loading && searched" class="text-center py-10">
-            <p class="text-gray-500">No products found for "{{ query }}"</p>
-        </div>
-    </div>
-
-    <script>
-        const { createApp } = Vue
-        createApp({
-            data() {
-                return {
-                    query: '',
-                    items: [],
-                    loading: false,
-                    searched: false
-                }
-            },
-            methods: {
-                async search() {
-                    if (!this.query) return;
-                    this.loading = true;
-                    this.searched = true;
-                    try {
-                        const response = await fetch(`/api/v1/search?q=${encodeURIComponent(this.query)}`);
-                        const data = await response.json();
-                        this.items = data.items || [];
-                    } catch (error) {
-                        console.error('Search error:', error);
-                        this.items = [];
-                    } finally {
-                        this.loading = false;
-                    }
-                }
-            }
-        }).mount('#app')
-    </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>frontend</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
